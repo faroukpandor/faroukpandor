@@ -1,4 +1,8 @@
 baseURL = "https://faroukpandor.github.io/"
 languageCode = "en-us"
 title = "Farouk Pandor"
+<<<<<<< HEAD
 theme = "hugo-theme-minimal"
+=======
+theme = "hugo-theme-minimal"
+>>>>>>> fdccdbf44b0c820cdd04eb3df407e1ca07c13be9
