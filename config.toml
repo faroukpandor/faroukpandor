@@ -2,3 +2,8 @@ baseURL = "https://faroukpandor.github.io/"
 languageCode = "en-us"
 title = "Farouk Pandor"
 theme = "hugo-theme-minimal"
+
+[[menu.main]]
+  name = "Strategy for Monetizing Passions"
+  url = "/strategy-monetizing/"
+  weight = 1
