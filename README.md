@@ -72,6 +72,14 @@ own Git integration — only needed if you prefer that flow.
   Squeezy) — no backend required to accept payment.
 - More free tools = more organic/SEO traffic over time.
 
+## Also in this repo: a lead-magnet validation page
+
+`leadmagnet/` is a separate, unrelated micro-project: a zero-backend landing
+page for validating a completely different idea (trading a free digital
+asset for a WhatsApp/email opt-in, to test demand before building a paid
+subscription product). It deploys as its own free Cloudflare Pages project
+from this same repo. See [`leadmagnet/README.md`](./leadmagnet/README.md).
+
 ## Roadmap
 
 - [ ] QR code generator

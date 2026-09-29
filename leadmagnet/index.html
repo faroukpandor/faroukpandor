@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free: The Moringa Commercialisation Starter Guide</title>
+  <meta name="description" content="A free, practical starter guide for commercialising Moringa cultivation in the SADC region — cultivation, compliance, and verified buyer contacts." />
+
+  <!--
+    ================================================================
+    LEAD MAGNET CONFIG — edit these 4 things before you deploy:
+    1. <title> and meta description above
+    2. ASSET_TITLE, ASSET_SUBTITLE, ASSET_BULLETS below
+    3. WHATSAPP_NUMBER below (international format, no + or spaces, e.g. 26771234567)
+    4. Put your real PDF at leadmagnet/downloads/asset.pdf (optional,
+       only needed if you switch to the direct-download variant instead
+       of the WhatsApp-request variant — see README.md)
+    ================================================================
+  -->
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:,">
+
+  <!-- Free Cloudflare Web Analytics: after deploying, grab your snippet from
+       the Cloudflare dashboard (Analytics & Logs -> Web Analytics -> Add site)
+       and paste the <script> tag here. No cost, no cookies, nothing else to change. -->
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow">Free download — SADC Village Enterprise &amp; Agri-Trade</p>
+
+    <h1 id="asset-title">The Moringa Commercialisation Starter Guide</h1>
+    <p class="subtitle" id="asset-subtitle">
+      A practical, no-fluff guide to growing and selling Moringa in Southern Africa —
+      cultivation basics, compliance checklist, and how to reach verified offtake buyers.
+    </p>
+
+    <ul class="bullets" id="asset-bullets">
+      <li>What buyers actually pay for, and how to grade your product</li>
+      <li>The compliance checklist most first-time growers miss</li>
+      <li>How to get introduced to verified regional offtake partners</li>
+    </ul>
+
+    <div class="card">
+      <h2>Get it free — sent straight to your WhatsApp</h2>
+      <p class="hint">No spam. One message, one PDF. That's it.</p>
+
+      <a
+        id="whatsapp-cta"
+        class="cta"
+        href="https://wa.me/26700000000?text=Hi%2C%20please%20send%20me%20the%20Moringa%20Commercialisation%20Starter%20Guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get the Guide on WhatsApp →
+      </a>
+
+      <p class="tiny">
+        Tapping the button opens WhatsApp with a message pre-filled — just hit send
+        and you'll receive the guide directly.
+      </p>
+    </div>
+
+    <footer class="footer">
+      <p>Brought to you by Farouk Pandor &middot; SADC Village Enterprise &amp; Agri-Trade Hub</p>
+    </footer>
+  </main>
+
+  <script>
+    // Zero-backend source tracking: append ?src=page1 / ?src=page2 / ?src=page3
+    // to the link you post on each Facebook page. This tags the pre-filled
+    // WhatsApp message so you know which page a lead came from —
+    // no analytics account, no cookies, no backend required.
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var src = params.get('src');
+      var link = document.getElementById('whatsapp-cta');
+      if (link && src) {
+        var url = new URL(link.href);
+        var text = url.searchParams.get('text') || '';
+        url.searchParams.set('text', text + ' [source: ' + src + ']');
+        link.href = url.toString();
+      }
+    })();
+  </script>
+</body>
+</html>
