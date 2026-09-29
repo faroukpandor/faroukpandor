@@ -1,125 +1,86 @@
-# Victor Hugo
+# 🦀 Dev Toolbox
 
-⚠️ **Deprecation Notice** 🏳
+A free, privacy-first developer toolbox that runs **entirely in your browser** —
+built in **Rust**, compiled to **WebAssembly**. Nothing you type is ever sent to a server.
 
-We are focusing our resources on building new templates that help you build a better web, because of that we're deprecating this template. We care about the community so we propose if anyone wants to maintain or take stewardship over the project please contact us at [devexperience@netlify.com](mailto:devexperience@netlify.com). If you want to share anything with the team about this template, you can also fill out [this form](https://template-feedback.netlify.app/).
+Live tools:
+- 🔑 Password generator
+- 🔤 Base64 encode / decode
+- 🧾 JSON formatter (pretty-print / minify)
 
-As an alternative to this repository, we're recommending to take a look at [Hyas](https://github.com/h-enk/hyas) as a project to make use of. It is focused on latest practices with Hugo and is already completely Netlify deploy ready.
+More tools will be added over time (see [Roadmap](#roadmap)).
 
----
+> The previous Hugo/Victor-Hugo-based site has been archived in
+> [`legacy-hugo-site/`](./legacy-hugo-site) for reference and is no longer maintained.
 
-**A Hugo boilerplate for creating truly epic websites**
+## Why this architecture?
 
-This is a boilerplate for using [Hugo](https://gohugo.io/) as a static site generator and [Webpack 5](https://webpack.js.org/) as your asset pipeline.
+Because the whole app is static HTML/CSS/WASM with **no backend**, it can be hosted
+for free, indefinitely, with no credit card, no request limits, and no cold starts —
+on **Cloudflare Pages**. See [this discussion](.) for the reasoning behind picking a
+100%-client-side Rust app over a server-based one for long-term free hosting.
 
-Victor Hugo setup to use [PostCSS v8](http://postcss.org/) and [Babel v7](https://babeljs.io/) for CSS and JavaScript compiling/transpiling.
+## Local development
 
-This project is released under the [MIT license](LICENSE). Please make sure you understand its implications and guarantees.
-
-## Usage
-
-### :exclamation: Prerequisites
-
-This template has been tested to work with [Node.js](https://nodejs.org/en/download/) v16 and [npm](https://www.npmjs.com/get-npm) v6.
-
-Next step, clone this repository and run:
-
-```bash
-npm install
-```
-
-This will take some time and will install all packages necessary to run Victor Hugo and its tasks.
-
-### :construction_worker: Development
-
-While developing your website, use:
+Install prerequisites once:
 
 ```bash
-npm start
+# Install Rust: https://rustup.rs
+rustup target add wasm32-unknown-unknown
+cargo install trunk
 ```
 
-or for developing your website with `hugo server --buildDrafts --buildFuture`, use:
+Then run a local dev server with hot reload:
 
 ```bash
-npm run preview
+trunk serve --open
 ```
 
-Then visit http://localhost:3000/ _- or a new browser windows popped-up already -_ to preview your new website. Webpack Dev Server will automatically reload the CSS or refresh the whole page, when stylesheets or content changes.
-
-### :package: Static build
-
-To build a static version of the website inside the `/dist` folder, run:
+Build a production bundle into `dist/`:
 
 ```bash
-npm run build
+trunk build --release
 ```
 
-To get a preview of posts or articles not yet published, run:
+## Deploying to Cloudflare Pages (free, forever)
 
-```bash
-npm run build:preview
-```
+1. Push this repo to GitHub (already done if you're reading this on GitHub).
+2. Go to the [Cloudflare dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
+3. Select this repository, then set the build config:
+   - **Framework preset**: `None`
+   - **Build command**: `curl https://sh.rustup.rs -sSf | sh -s -- -y && source "$HOME/.cargo/env" && rustup target add wasm32-unknown-unknown && cargo install trunk && trunk build --release`
+   - **Build output directory**: `dist`
+4. Deploy. You'll get a free `your-project.pages.dev` URL immediately, with free SSL
+   and no bandwidth/request caps for normal traffic. You can later attach your own
+   custom domain for free too, if you own one.
 
-See [package.json](package.json#L8) for all tasks.
+Every push to your default branch will auto-redeploy.
 
-## Structure
+### Continuous integration
 
-```
-|--site                // Everything in here will be built with hugo
-|  |--content          // Pages and collections - ask if you need extra pages
-|  |--data             // YAML data files with any data for use in examples
-|  |--layouts          // This is where all templates go
-|  |  |--partials      // This is where includes live
-|  |  |--index.html    // The index page
-|  |--resources        // This is where all assets go
-|  |--static           // Files in here ends up in the public folder
-|--src                 // Files that will pass through the asset pipeline
-|  |--css              // Webpack will bundle imported css separately
-|  |--index.js         // index.js is the webpack entry for your css & js assets
-```
+`.github/workflows/ci.yml` builds the project on every push/PR using GitHub Actions
+(which has full internet access), so you get a build-status check even before
+Cloudflare builds it. `.github/workflows/deploy-cloudflare-pages.yml` is an optional
+alternative that deploys via `wrangler` from GitHub Actions instead of Cloudflare's
+own Git integration — only needed if you prefer that flow.
 
-## Basic Concepts
+## Monetization ideas (optional, still zero-cost to host)
 
-You can read more about Hugo's template language in their documentation here:
+- Non-intrusive ads (e.g. Google AdSense / EthicalAds) — just a script tag, no backend.
+- A "Pro" tier (e.g. remove ads, unlock more tools/batch mode) sold as a one-time
+  or recurring payment via a hosted payment link (Stripe Payment Links or Lemon
+  Squeezy) — no backend required to accept payment.
+- More free tools = more organic/SEO traffic over time.
 
-https://gohugo.io/templates/overview/
+## Roadmap
 
-The most useful page there is the one about the available functions:
+- [ ] QR code generator
+- [ ] UUID generator
+- [ ] Regex tester
+- [ ] Unit converter
+- [ ] Markdown previewer
+- [ ] "Pro" unlock flow
 
-https://gohugo.io/templates/functions/
+## License
 
-For assets that are completely static and don't need to go through the asset pipeline,
-use the `site/static` folder. Images, font-files, etc, all go there.
-
-Files in the static folder end up in the web root. So a file called `site/static/favicon.ico`
-will end up being available as `/favicon.ico` and so on...
-
-The `src/index.js` file is the entrypoint for webpack and will be built to `/dist/main.js`
-
-You can use **ES6** and use both relative imports or import libraries from npm.
-
-Any CSS file imported into the `index.js` will be run through Webpack, compiled with [PostCSS Next](http://cssnext.io/), and
-minified to `/dist/[name].[hash:5].css`. Import statements will be resolved as part of the build.
-
-## Environment variables
-
-To separate the development and production _- aka build -_ stages, all tasks run with a node environment variable named either `development` or `production`.
-
-You can access the environment variable inside the theme files with `getenv "NODE_ENV"`. See the following example for a conditional statement:
-
-    {{ if eq (getenv "NODE_ENV") "development" }}You're in development!{{ end }}
-
-All tasks starting with _build_ set the environment variable to `production` - the other will set it to `development`.
-
-## Deploying to Netlify
-
-- Push your clone to your own GitHub repository.
-- [Create a new site on Netlify](https://app.netlify.com/start) and link the repository.
-
-Now Netlify will build and deploy your site whenever you push to git.
-
-You can also click this button:
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify/victor-hugo)
-
-## Enjoy!! 😸
+MIT — see [LICENSE](./LICENSE).

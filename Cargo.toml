@@ -1,0 +1,24 @@
+[package]
+name = "dev-toolbox"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A free, privacy-first, client-side developer toolbox built in Rust + WebAssembly."
+
+[dependencies]
+yew = { version = "0.21", features = ["csr"] }
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", features = ["HtmlInputElement", "HtmlTextAreaElement", "Clipboard", "Navigator", "Window"] }
+js-sys = "0.3"
+gloo-timers = "0.3"
+rand = "0.8"
+getrandom = { version = "0.2", features = ["js"] }
+serde_json = "1"
+base64 = "0.22"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
