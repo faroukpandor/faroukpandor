@@ -79,6 +79,8 @@ Both repositories were pushed 2026-10-16. Two candidate homes for the same agric
 **D7 — The PERSONAL-BRAND docs are in the wrong repository. `GREEN`.**
 `docs/PERSONAL-BRAND/` — README, CAPABILITY-MAP, ENTERPRISE-ROUTING-MATRIX, MASTER-PROFESSIONAL-RECORD, OWNERSHIP-STATUS-REGISTER, PORTFOLIO-ASSET-LEDGER — exists only in `faroukpandor/faroukpandor`, which is a **fork of the deprecated `netlify-templates/victor-hugo`** (description: "FAROUK PANDOR by Victor Hugo boilerplate…"). The canonical repo `faroukpandor.github.io` contains none of them. Your register says the canonical repo is `ACTIVE / CANONICAL` and this one is not mentioned at all. So the current strategic documentation of your professional layer is stranded in a deprecated boilerplate fork with a Hugo/Webpack build nothing uses. Move the six documents into `faroukpandor.github.io/docs/PERSONAL-BRAND/` — same relative path, a straight copy — and leave the fork as a stub or archive it.
 
+**Blocked 2026-10-19.** The GitHub connector is read-only. `git push` to `faroukpandor.github.io` returns 403 ("Permission denied to faroukpandor") and `gh api .../git/blobs -X POST` returns 403 ("Resource not accessible by integration") — even though the repository API reports `admin: true`. Reading works; writing does not. A blob write was used as the probe precisely because it creates no branch, no commit and no visible change. Tracked as FAR-38. Resolution: reconnect GitHub in Arena with write scope, or apply the four-line copy by hand.
+
 **D8 — Dropbox is empty and should be declared so. `GREEN`.**
 Root listing returns `[]`. It is not a storage hub and should not appear in any plan. Declaring it unused is cheaper than keeping it as an unexamined "maybe".
 
@@ -108,26 +110,42 @@ The strategic point: **you are paying nothing, and the free tiers are not the co
 
 ## 6. Ranked next actions
 
-Ordered by money and risk, not by tidiness.
+Ordered by money and risk, not by tidiness. Status as of 2026-10-19.
 
-1. **Move anything monetised off Vercel Hobby to Cloudflare Pages.** Before the first DGE invoice, not after. Zero cost. (D1)
-2. **Decide what Supabase is for.** If nothing in `Farouk Pandor Collective` is load-bearing, retire it; if something is, recovering it is urgent because there is no backup. (D2)
-3. **Load the twelve Principal Action Sheet items into Linear `FAR`**, dated, one project. This is what stops the three audit bookings from being a paragraph. (D3)
-4. **Reconnect Gmail.** Without it, both live commercial threads are invisible to the system. (D9)
-5. **Collapse the Notion pesticide databases** to one, after a diff. (D4)
-6. **Fix the ledger timezone** and log the next invoice in it the day it is issued. (D5)
-7. **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** Same paths, straight copy. (D7)
-8. **Close the `agrisphere` / `smartfarm` decision.** (D6)
+| # | Action | Status |
+|---|---|---|
+| 1 | **Move anything monetised off Vercel Hobby to Cloudflare Pages** — before the first DGE invoice, not after. Zero cost. (D1) | Open — **FAR-29**, Urgent |
+| 2 | **Decide what Supabase is for** — retire, or treat the missing backup as the emergency. (D2) | Open — **FAR-31**, High |
+| 3 | **Load the Principal Action Sheet into Linear with a clock on it.** (D3) | **DONE** — project *Principal Action Sheet — 2026-10-09*, FAR-26 to FAR-38 |
+| 4 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-32**, High |
+| 5 | **Collapse the Notion pesticide databases** to one, after a diff. (D4) | Not started — requires a diff first |
+| 6 | **Fix the ledger timezone**, then log the next invoice the day it is issued. (D5) | **Timezone DONE** — sheet now `Africa/Gaborone`. Logging: **FAR-27** |
+| 7 | **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** (D7) | **Blocked** — GitHub connector is read-only. **FAR-38** |
+| 8 | **Close the `agrisphere` / `smartfarm` decision.** (D6) | Open — **FAR-35**, Medium |
+
+The three items that create or protect money — D1, D2 and the audit bookings — are all owner-gated. Nothing in this session can complete them: one is a hosting migration, one is a database judgement, one is sending messages as Farouk.
 
 Explicitly **not** recommended: creating a repository, a dashboard, a Notion database, a spreadsheet registry, a new Supabase project or a subscription. There are 107 documents already; the deficit is not documentation.
 
 ---
 
-## 7. What I did not verify
+## 7. Executed in this session
+
+Only three changes were made. All are additive or trivially reversible; nothing was deleted, moved or published.
+
+1. **`FAROUK-BOOKS-LEDGER` timezone changed** from `America/Los_Angeles` to `Africa/Gaborone`. The first attempt failed because it paired the timezone with an unsupported locale (`en_BW`); the timezone was then applied alone and verified in the response. D5 closed.
+2. **Linear project created** — *Principal Action Sheet — 2026-10-09*, in team `FAR`, priority High. Content states its own evidence basis. D3 closed.
+3. **Thirteen issues created**, FAR-26 to FAR-38: twelve carried from the action sheet, one (FAR-38) recording the GitHub write-access block. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
+
+Attempted and failed: pushing the consolidation branch to `faroukpandor.github.io`. Read-only credential, reproduced twice, recorded in FAR-38. The fork remains the only copy of these documents for now — which is precisely the problem the audit found, so it should not be left in that state.
+
+---
+
+## 8. What I did not verify
 
 Stated plainly so nothing here is read as more than it is.
 
-- **The private repositories.** `MOKORO-ENTERPRISE-OS`, `AGRISAGE`, `EVERYTHINGCITY` and the rest are invisible to this session — the GitHub integration returns 403 and `gh repo list` silently omits private repos. The canonical register lists eleven repositories I could not open. Everything in this document about them comes from Vercel deployment metadata, Drive mirrors and your own register — **SELF-REPORTED** at best.
+- **The private repositories.** `MOKORO-ENTERPRISE-OS`, `AGRISAGE`, `EVERYTHINGCITY` and the rest are invisible to this session — the GitHub integration returns 403 and `gh repo list` silently omits private repos. The canonical register lists eleven repositories I could not open. Everything in this document about them comes from Vercel deployment metadata, Drive mirrors and your own register — **SELF-REPORTED** at best. The same credential that cannot read them also cannot write to the public ones.
 - **What is inside `Farouk Pandor Collective`.** The schema query timed out; no table, row count or data content is known. Whether the database holds anything worth recovering is **unknown**.
 - **Notion in full.** Search truncates even at 25 results because of property payloads. I saw a sample of databases and pages, not the workspace.
 - **Vercel in full.** `list_projects` truncates at both 50 and 10 because it embeds deployment metadata. The project inventory is partial. I did not surface any environment values and none appear in this document.
