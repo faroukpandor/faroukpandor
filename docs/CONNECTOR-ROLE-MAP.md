@@ -69,8 +69,24 @@ Ten projects; nine inactive (nexus-print, supabase-sky-door, supabase-blue-ball,
 **D3 — Linear is not the queue of record. `GREEN`.**
 `FAR` holds five issues — FAR-21 Android/Capacitor wrapper, FAR-22 Tauri desktop, FAR-23 iOS, FAR-24 SECURITY.md and token rotation, FAR-25 paid-step budget — all Todo, unassigned, no project, all derived from `docs/26`. That is a backlog for a future product, not a record of current commitments. Meanwhile the commitments that actually bind you (three audit bookings, JV & Sons gate 1, RafTon/Zhauns/SupplySA sends, Cloudflare Access) live in a Drive document with no dates and no reminders. The fix is to load the Action Sheet's twelve items into `FAR` as dated issues, one project: `Revenue — Q4 2026`. This is the highest-leverage change in this document that costs nothing and creates nothing new.
 
-**D4 — Duplicate pesticide databases in Notion. `AMBER`.**
-The same record appears in two data sources: `b826ad89-5703-4b61-a2ef-9bb0bcc6b3d2` and `63ce62e6-e4d3-466e-b61b-e84b64a2a3f5` — SARBAN 4 E (chlorpyrifos 480 g/L), SAFA TARIM A.S., registration 1877, importer Scientific Agricultural Services Est, restricted, expired 2019-03-30. **VERIFIED.** Choose one database as canonical, keep the other read-only until the merge is confirmed, then archive it. Do not delete records until one set has been diffed against the other — this is regulated-product data and a wrong merge is a safety problem, not a tidiness problem.
+**D4 — The pesticide register is split across five databases, not two. `AMBER`.**
+I originally reported this as a duplicate across two data sources. On re-check it is **five copies of the same record in five separate databases**. **VERIFIED** — identical field values in every copy:
+
+> SARBAN 4 E · chlorpyrifos 480 g/L · SAFA TARIM A.S. · registration 1877 · importer Scientific Agricultural Services Est · agricultural pesticide (insecticide) · restricted · expired 2019-03-30
+
+| Copy | Page | Database |
+|---|---|---|
+| 1 | `006335d1` | `b826ad89-5703-4b61-a2ef-9bb0bcc6b3d2` |
+| 2 | `16d42f3e` | `63ce62e6-e4d3-466e-b61b-e84b64a2a3f5` |
+| 3 | `51f12c81` | `66f23aea-d4cd-49cf-bec0-46fe5bfedbbd` |
+| 4 | `6545770f` | `2c69c13a-f1a9-4b6a-ae22-8f2996687f3c` |
+| 5 | `829e8ec2` | `a716c280-da79-483a-b7aa-319aa75c6b79` |
+
+**All five carry the same `last_edited_time`: 2026-10-01T01:27:00Z.** Identical timestamps across five records is not human entry; it is the signature of a bulk import or a sync that ran against multiple targets. The likely root cause is an importer that was pointed at a different database each time it ran, rather than one that upserts into a fixed one.
+
+**Why this matters more at five than at two.** A regulated-product register that exists in five places cannot answer "what is registered to whom" — every query returns a different subset. Choosing a canonical database is not the hard part; the hard part is that until the importer is fixed, the winner will be re-fragmented the next time it runs.
+
+**Order of work:** fix the importer target first, then pick one database as canonical, then archive the other four. Do not merge records until the duplication is guaranteed to stop — otherwise the merge is undone by the next import. Treat this as regulated data: a wrong merge is a safety problem, not a tidiness problem.
 
 **D5 — The ledger is on Los Angeles time. `GREEN`, money-adjacent.**
 `FAROUK-BOOKS-LEDGER` has `time_zone: America/Los_Angeles`; your calendar is `Africa/Maputo`. Any date entered near midnight, or any auto-stamp, will land on the wrong day and potentially the wrong month — in the one file that records revenue. Set it to `Africa/Gaborone`. Two minutes, reversible.
@@ -120,7 +136,7 @@ Ordered by money and risk, not by tidiness. Status as of 2026-10-19.
 | 2 | **Decide what Supabase is for** — retire, or treat the missing backup as the emergency. (D2) | Open — **FAR-31**, High |
 | 3 | **Load the Principal Action Sheet into Linear with a clock on it.** (D3) | **DONE** — project *Principal Action Sheet — 2026-10-09*, FAR-26 to FAR-38 |
 | 4 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-32**, High |
-| 5 | **Collapse the Notion pesticide databases** to one, after a diff. (D4) | Not started — requires a diff first |
+| 5 | **Fix the Notion importer, then collapse the pesticide register** from five databases to one. (D4) | Open — **FAR-40**, Medium. Importer first, merge second |
 | 6 | **Fix the ledger timezone**, then log the next invoice the day it is issued. (D5) | **Timezone DONE** — sheet now `Africa/Gaborone`. Logging: **FAR-27** |
 | 7 | **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** (D7) | **Blocked** — GitHub connector is read-only. **FAR-38** |
 | 8 | **Close the `agrisphere` / `smartfarm` decision.** (D6) | Open — **FAR-35**, Medium |
@@ -138,7 +154,9 @@ Only three changes were made. All are additive or trivially reversible; nothing 
 
 1. **`FAROUK-BOOKS-LEDGER` timezone changed** from `America/Los_Angeles` to `Africa/Gaborone`. The first attempt failed because it paired the timezone with an unsupported locale (`en_BW`); the timezone was then applied alone and verified in the response. D5 closed.
 2. **Linear project created** — *Principal Action Sheet — 2026-10-09*, in team `FAR`, priority High. Content states its own evidence basis. D3 closed.
-3. **Fourteen issues created**, FAR-26 to FAR-39: twelve carried from the action sheet, one (FAR-38) recording the GitHub write-access block, one (FAR-39) recording the 138 stranded files. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
+3. **Fifteen issues created**, FAR-26 to FAR-40: twelve carried from the action sheet; FAR-38 for the GitHub write-access block; FAR-39 for the 138 stranded files; FAR-40 for the five-way pesticide register. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
+4. **Mirrored to Google Drive** `0.DOCUMENTS` as a Google Doc — `CONNECTOR-ROLE-MAP (2026-10-19)`, id `171wakyYWKAjQJ_EYmlxK0-_3cA2hjuUgNr3VGz8Oz_8`. Drive is writable where GitHub is not, and `0.DOCUMENTS` is already the documented mirror for enterprise docs. This makes the map readable to the owner today, without waiting for GitHub write access.
+5. **FAR-35 corrected.** The `agrisphere` / `smartfarm` question was recorded as undecided. It is not: the decision was made 2026-10-16 and written into `agrisphere/docs/PORTFOLIO-COMPETITIVE-POSITIONING-2026-10.md` — AgriSphere is reference/legacy, SmartFarm is the farm system of record. It was never propagated to the governance layer or the action sheet. The work is now propagation, not decision.
 
 Attempted and failed: pushing the consolidation branch to `faroukpandor.github.io`. Read-only credential, reproduced twice, recorded in FAR-38. The fork remains the only copy of these documents for now — which is precisely the problem the audit found, so it should not be left in that state.
 
