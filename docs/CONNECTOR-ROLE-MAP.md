@@ -1,7 +1,7 @@
 # Connector Role Map — One Home Per Data Type
 
 **Status:** Draft for owner decision. Nothing has been created, moved, renamed or deleted.
-**Evidence cut-off:** 2026-10-19.
+**Evidence cut-off:** 2026-10-20 (audit ran overnight 19–20 October, UTC).
 **Scope:** the ten Arena connectors currently enabled — Google Drive, Google Docs, Google Sheets, Google Calendar, Google Slides, Notion, Linear, Supabase, Vercel, Dropbox.
 **Intended canonical home:** `faroukpandor/faroukpandor.github.io` → `docs/CONNECTOR-ROLE-MAP.md`.
 **Staged in:** `faroukpandor/faroukpandor` (a fork of the deprecated `netlify-templates/victor-hugo`), branch `arena/e5da17aa-faroukpandor`. See Decision D7 — that staging location is itself part of the problem.
@@ -17,9 +17,16 @@ Three findings reorder the whole picture. None of them is about tidiness; all th
 1. **The hosting plan under the revenue work forbids commercial use.** `mokoro-eos`, `agrisage` and `jong-finance` are deployed on Vercel **Hobby**, which is restricted to non-commercial personal use. Vercel's own fair-use guidelines define commercial use as including "advertising the sale of a product or service", "receiving payment to create, update, or host the site", and any deployment used for the financial gain of anyone involved in producing it — explicitly including a paid consultant writing the code. This is an eligibility rule, not a traffic threshold: it is broken by intent, not volume. **DOCUMENTED** ([fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines), [terms](https://vercel.com/legal/terms)). Your own stack already contains the permitted alternative — Cloudflare Pages, which you are already deploying to. Cost to comply: zero.
 2. **The books are empty.** `FAROUK-BOOKS-LEDGER` (`1EkkN9IqMME4ZCnaKM3ZIwveAGR2wsmccMgmRKjbwVaE`) returns one row: the header. Date / Type / Ref / Client / Description / Amount / Method / Received-Paid — no entries. **VERIFIED**. Combined with your Principal Action Sheet item 4 ("invoice + log in FAROUK-BOOKS-LEDGER same day"), the most economical reading is that no revenue has yet passed through this system. **REQUIRES CONFIRMATION** — entries may live somewhere I cannot see.
 3. **Nothing in the calendar is a customer.** Across 2026-10-19 → 2026-11-03 the calendar is dominated by recurring internal blocks — Project Coordination (weekdays 10:00–11:00), Strategic Thinking (Thu 09:00–11:00), Sprint Planning (Thu 12:00–14:00) — plus one supplier-chain call and one personal visit. There is no sales call, no audit booking, no client meeting. **VERIFIED**. That is consistent with the P0 money action (name three businesses, send three audit bookings) still being unsent. The bottleneck is not a missing system. It is that the system has no customers in it.
-4. **The governance corpus is split across 75 unmerged branches, not one main line.** `faroukpandor.github.io` has 76 branches. Every one of the 75 non-`main` branches is ahead of `main`, and between them they hold **138 files that do not exist on `main`** — on top of the 107 files already there. **VERIFIED**, counted branch by branch. The branch names describe the pattern: `africa-evidence-pass-1-v1`, `bioresources-recursion-011-020`, `…-091-100`, each a document batch committed to its own branch and never merged. So the *real* corpus is roughly 245 documents, and more than half of it is unreachable from the repository's main line. Anyone reading `main` today sees 44% of the work.
+4. **The branch situation is much smaller than first reported — corrected here.** `faroukpandor.github.io` has 76 branches, and every one of the 75 non-`main` branches is ahead of `main`. My first pass read GitHub's compare API as showing **138 files absent from `main`** and concluded the corpus was ~245 documents with `main` exposing 44%. **That was wrong.** The API reports files *changed*, which includes edits to files that already exist. Measured by blob SHA instead:
 
-The organising conclusion: this ecosystem does not need more structure. It has ~245 governance documents, 76 branches, 23 Drive folders, 40 visible repositories, 24 calendars, 10 databases and a register that already defines ownership vocabulary. What it lacks is **one agreed home per data type**, so that each connector has a job instead of being a place where a copy might also exist — and, at the repository level, one main line instead of 75 parallel ones.
+   - 93 of the 138 branch file versions are **byte-identical** to `main`;
+   - 39 versions genuinely differ, and most are stale copies of generated `index.html` (15 branches) and `site.css` (13 branches) on branches cut before later `main` commits;
+   - **only 6 file paths exist on branches and not on `main` at all**.
+
+   So the real problem is **16 unique paths**, not 138 files, and `main` already exposes 96% of the corpus. The merge is an afternoon of work, not a consolidation project. Full detail, including the six missing files and the eight divergent documents, is in `docs/BRANCH-CONSOLIDATION-MANIFEST-2026-10-19.md`. The one item that deserves care: `REPOSITORY-RELATIONSHIP-REGISTRY.md` exists in three different versions across three branches — a registry with three candidate versions is not a registry.
+
+The organising conclusion: this ecosystem does not need more structure. It has ~139 documents, 76 branches, 23 Drive folders, 40 visible repositories, 24 calendars, 10 databases and a register that already defines ownership vocabulary. What it lacks is **one agreed home per data type**, so that each connector has a job instead of being a place where a copy might also exist.
+
 
 
 ---
@@ -128,19 +135,20 @@ The strategic point: **you are paying nothing, and the free tiers are not the co
 
 ## 6. Ranked next actions
 
-Ordered by money and risk, not by tidiness. Status as of 2026-10-19.
+Ordered by money and risk, not by tidiness. Status as of 2026-10-20.
 
 | # | Action | Status |
 |---|---|---|
 | 1 | **Move anything monetised off Vercel Hobby to Cloudflare Pages** — before the first DGE invoice, not after. Zero cost. (D1) | Open — **FAR-29**, Urgent |
-| 2 | **Decide what Supabase is for** — retire, or treat the missing backup as the emergency. (D2) | Open — **FAR-31**, High |
-| 3 | **Load the Principal Action Sheet into Linear with a clock on it.** (D3) | **DONE** — project *Principal Action Sheet — 2026-10-09*, FAR-26 to FAR-38 |
-| 4 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-32**, High |
-| 5 | **Fix the Notion importer, then collapse the pesticide register** from five databases to one. (D4) | Open — **FAR-40**, Medium. Importer first, merge second |
-| 6 | **Fix the ledger timezone**, then log the next invoice the day it is issued. (D5) | **Timezone DONE** — sheet now `Africa/Gaborone`. Logging: **FAR-27** |
-| 7 | **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** (D7) | **Blocked** — GitHub connector is read-only. **FAR-38** |
-| 8 | **Close the `agrisphere` / `smartfarm` decision.** (D6) | Open — **FAR-35**, Medium |
-| 9 | **Consolidate the 138 files stranded across 75 unmerged branches** — triage for duplicates, then one merge per theme. (Finding 4) | Open — **FAR-39**, High. Needs GitHub write access |
+| 2 | **Send the outreach.** The shortlist of seven prospects already exists (`FIRST-CUSTOMER-VALIDATION-SHORTLIST-2026-10-19.md`); only the messages are missing. (D3) | Open — **FAR-26**, Urgent. Human only — nobody can send it for you |
+| 3 | **Decide what Supabase is for** — retire, or treat the missing backup as the emergency. (D2) | Open — **FAR-31**, High |
+| 4 | **Load the Principal Action Sheet into Linear with a clock on it.** (D3) | **DONE** — project *Principal Action Sheet — 2026-10-09*, FAR-26 to FAR-40 |
+| 5 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-32**, High |
+| 6 | **Fix the Notion importer, then collapse the pesticide register** from five databases to one. (D4) | Open — **FAR-40**, Medium. Importer first, merge second |
+| 7 | **Fix the ledger timezone**, then log the next invoice the day it is issued. (D5) | **Timezone DONE** — sheet now `Africa/Gaborone`. Logging: **FAR-27** |
+| 8 | **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** (D7) | **Blocked** — GitHub connector is read-only. **FAR-38** |
+| 9 | **Close the `agrisphere` / `smartfarm` decision.** (D6) | Open — **FAR-35**, Medium |
+| 10 | **Copy in the 6 files that exist only on branches, resolve the 8 divergent docs, delete the 75 branches.** (Finding 4) | Open — **FAR-39**, Medium. ~2 hours. Needs GitHub write access |
 
 The three items that create or protect money — D1, D2 and the audit bookings — are all owner-gated. Nothing in this session can complete them: one is a hosting migration, one is a database judgement, one is sending messages as Farouk.
 
@@ -154,7 +162,9 @@ Only three changes were made. All are additive or trivially reversible; nothing 
 
 1. **`FAROUK-BOOKS-LEDGER` timezone changed** from `America/Los_Angeles` to `Africa/Gaborone`. The first attempt failed because it paired the timezone with an unsupported locale (`en_BW`); the timezone was then applied alone and verified in the response. D5 closed.
 2. **Linear project created** — *Principal Action Sheet — 2026-10-09*, in team `FAR`, priority High. Content states its own evidence basis. D3 closed.
-3. **Fifteen issues created**, FAR-26 to FAR-40: twelve carried from the action sheet; FAR-38 for the GitHub write-access block; FAR-39 for the 138 stranded files; FAR-40 for the five-way pesticide register. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
+3. **Fifteen issues created**, FAR-26 to FAR-40: twelve carried from the action sheet; FAR-38 for the GitHub write-access block; FAR-39 for branch consolidation; FAR-40 for the five-way pesticide register. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
+6. **Branch triage completed and written up** as `docs/BRANCH-CONSOLIDATION-MANIFEST-2026-10-19.md` — every branch compared to `main` by blob SHA. This produced the correction in finding 4 and reduced FAR-39 from an open-ended consolidation to 16 named items.
+7. **FAR-26 corrected again.** The Action Sheet asks to "name 3 businesses", but `docs/FIRST-CUSTOMER-VALIDATION-SHORTLIST-2026-10-19.md` already names seven, with sources, fit hypotheses, a draft script and eight qualification questions. The naming work is done. FAR-26 is now "send the outreach" — a human step, and the only one on the list that creates revenue.
 4. **Mirrored to Google Drive** `0.DOCUMENTS` as a Google Doc — `CONNECTOR-ROLE-MAP (2026-10-19)`, id `1GzFlAPyaf4YtHzemdJRUQTDAr_gSCs1bbOvH17CYoq0`. Drive is writable where GitHub is not, and `0.DOCUMENTS` is already the documented mirror for enterprise docs. This makes the map readable to the owner today, without waiting for GitHub write access. (A first upload was replaced; a placeholder edit was made in error and the file re-uploaded from the source. The trashed copy can be purged.)
 5. **FAR-35 corrected.** The `agrisphere` / `smartfarm` question was recorded as undecided. It is not: the decision was made 2026-10-16 and written into `agrisphere/docs/PORTFOLIO-COMPETITIVE-POSITIONING-2026-10.md` — AgriSphere is reference/legacy, SmartFarm is the farm system of record. It was never propagated to the governance layer or the action sheet. The work is now propagation, not decision.
 
