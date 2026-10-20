@@ -1,6 +1,6 @@
 # Connector Role Map — One Home Per Data Type
 
-**Status:** Draft for owner decision. Nothing has been created, moved, renamed or deleted.
+**Status:** Draft for owner decision. Connector contents are unaltered except the reversible changes listed in §7 — one spreadsheet timezone, one Linear project with fifteen issues, and the Drive snapshot of this document. No records, deployments, repositories, databases or invoices were changed.
 **Evidence cut-off:** 2026-10-20 (audit ran overnight 19–20 October, UTC).
 **Scope:** the ten Arena connectors currently enabled — Google Drive, Google Docs, Google Sheets, Google Calendar, Google Slides, Notion, Linear, Supabase, Vercel, Dropbox.
 **Intended canonical home:** `faroukpandor/faroukpandor.github.io` → `docs/CONNECTOR-ROLE-MAP.md`.
