@@ -1,6 +1,6 @@
 # Connector Role Map — One Home Per Data Type
 
-**Status:** Draft for owner decision. Connector contents are unaltered except the reversible changes listed in §7 — one spreadsheet timezone, one Linear project with fifteen issues, and the Drive snapshot of this document. No records, deployments, repositories, databases or invoices were changed.
+**Status:** Draft for owner decision. Connector contents are unaltered except the reversible changes listed in §7 — one spreadsheet timezone, one Linear project with fifteen issues (two since archived as duplicates this session created), and the Drive snapshot of this document. No records, deployments, repositories, databases or invoices were changed.
 **Evidence cut-off:** 2026-10-20 (audit ran overnight 19–20 October, UTC).
 **Scope:** the ten Arena connectors currently enabled — Google Drive, Google Docs, Google Sheets, Google Calendar, Google Slides, Notion, Linear, Supabase, Vercel, Dropbox.
 **Intended canonical home:** `faroukpandor/faroukpandor.github.io` → `docs/CONNECTOR-ROLE-MAP.md`.
@@ -35,7 +35,7 @@ The organising conclusion: this ecosystem does not need more structure. It has ~
 
 **One canonical home per data type. Everything else is transport or staging, and is labelled as such.**
 
-A second copy is allowed only when it is read-only and disposable — a mirror for phone reading, a PDF export, a backup. A second copy that can be *edited* is not a copy; it is a fork, and forks drift. That is already visible in your own estate: pesticide records exist in two Notion data sources with the same underlying record.
+A second copy is allowed only when it is read-only and disposable — a mirror for phone reading, a PDF export, a backup. A second copy that can be *edited* is not a copy; it is a fork, and forks drift. That is already visible in your own estate: the same pesticide record exists in five separate Notion databases, all written by the same bulk import at the same second (D4).
 
 ---
 
@@ -49,7 +49,7 @@ A second copy is allowed only when it is read-only and disposable — a mirror f
 | 4 | Money: invoices, quotes, ledger | Google Sheets `FAROUK-BOOKS-LEDGER` | Drive `0.FINANCE_&_INVOICES` holds the artefacts (PDFs, order forms) | **VERIFIED.** Header-only, zero entries |
 | 5 | Supplier and vendor evidence | Drive `0.VENDORS` | Promote to `docs/` once it informs an offer or a decision | **VERIFIED** folder exists |
 | 6 | Agronomy and veterinary domain knowledge | Notion — **one** database per subject | — | **VERIFIED duplication** (see D4) |
-| 7 | Dated commitments and work queue | Linear, team `FAR` | Principal Action Sheet stays the narrative | **VERIFIED.** 5 issues, all Todo, none assigned |
+| 7 | Dated commitments and work queue | Linear, team `FAR` | Principal Action Sheet stays the narrative | **VERIFIED.** Held 5 unassigned issues from `docs/26` on 2026-10-19; the Action Sheet's twelve items are now loaded as one project, FAR-26…FAR-40 (D3) |
 | 8 | Commitments with people and dates | Google Calendar | Source calendars (WCD, Facebook appointments, crop production) stay read-only feeds | **VERIFIED.** 24 calendars |
 | 9 | Client and employer material | Client-controlled Drive — never mirrored | — | Register already carries `CLIENT-CONTROLLED` |
 | 10 | Files and binary attachments | Google Drive | — | Dropbox is empty; see D8 |
@@ -74,7 +74,9 @@ Each one is a decision, not a task. Costs are stated. Nothing here is executed.
 Ten projects; nine inactive (nexus-print, supabase-sky-door, supabase-blue-ball, BWHANDYMAN, everything-city, MOKORO, supabase-vercel-erp, supabase-green-lamp, BUSINESS_DIRECTORY). The single active project, `Farouk Pandor Collective` (`absqkjimaooetbdbvxge`, eu-west-1), reports `db`, `auth`, `rest`, `storage`, `realtime` and `pg_bouncer` all **UNHEALTHY**; only the pooler is healthy. A schema query timed out at 544 seconds and was not retried. Free plan allows **two active projects**, and pauses any project after seven days without database activity — and, critically, **free projects have no backups** on the free plan. **DOCUMENTED.** Note the contradiction: an inactive project on the free plan is supposed to be *paused*, not unhealthy — so "UNHEALTHY" is not simply the inactivity rule, and its cause is unknown to me. Do not debug this speculatively. Decide what, if anything, in `Farouk Pandor Collective` is load-bearing; if nothing is, the correct answer is zero live databases, not one broken one. If something is, the missing backup is the emergency, not the outage.
 
 **D3 — Linear is not the queue of record. `GREEN`.**
-`FAR` holds five issues — FAR-21 Android/Capacitor wrapper, FAR-22 Tauri desktop, FAR-23 iOS, FAR-24 SECURITY.md and token rotation, FAR-25 paid-step budget — all Todo, unassigned, no project, all derived from `docs/26`. That is a backlog for a future product, not a record of current commitments. Meanwhile the commitments that actually bind you (three audit bookings, JV & Sons gate 1, RafTon/Zhauns/SupplySA sends, Cloudflare Access) live in a Drive document with no dates and no reminders. The fix is to load the Action Sheet's twelve items into `FAR` as dated issues, one project: `Revenue — Q4 2026`. This is the highest-leverage change in this document that costs nothing and creates nothing new.
+Before this change, `FAR` held five issues — FAR-21 Android/Capacitor wrapper, FAR-22 Tauri desktop, FAR-23 iOS, FAR-24 SECURITY.md and token rotation, FAR-25 paid-step budget — all Todo, unassigned, no project, all derived from `docs/26`. That is a backlog for a future product, not a record of current commitments. Meanwhile the commitments that actually bind you (three audit bookings, JV & Sons gate 1, RafTon/Zhauns/SupplySA sends, Cloudflare Access) live in a Drive document with no dates and no reminders. The fix is to load the Action Sheet's twelve items into `FAR` as dated issues, one project: `Revenue — Q4 2026`. This is the highest-leverage change in this document that costs nothing and creates nothing new.
+
+**Done 2026-10-19 — with one correction to the plan above.** The Action Sheet's items are now in `FAR` as project *Principal Action Sheet — 2026-10-09*, issues FAR-26 to FAR-40. The project is not called `Revenue — Q4 2026` because most of the thirteen live issues are not revenue work; naming them revenue would have been a lie the tracker then repeats back. Two issues — FAR-28 and FAR-32 — were created as duplicates of the pre-existing FAR-11 and FAR-15 before the existing backlog was read properly, and have been archived.
 
 **D4 — The pesticide register is split across five databases, not two. `AMBER`.**
 I originally reported this as a duplicate across two data sources. On re-check it is **five copies of the same record in five separate databases**. **VERIFIED** — identical field values in every copy:
@@ -98,8 +100,10 @@ I originally reported this as a duplicate across two data sources. On re-check i
 **D5 — The ledger is on Los Angeles time. `GREEN`, money-adjacent.**
 `FAROUK-BOOKS-LEDGER` has `time_zone: America/Los_Angeles`; your calendar is `Africa/Maputo`. Any date entered near midnight, or any auto-stamp, will land on the wrong day and potentially the wrong month — in the one file that records revenue. Set it to `Africa/Gaborone`. Two minutes, reversible.
 
-**D6 — `agrisphere` vs `smartfarm`. `Owner decision`, already open as Action Sheet item 11.**
-Both repositories were pushed 2026-10-16. Two candidate homes for the same agricultural capability means neither is canonical. Pick one, mark the other `CONSOLIDATE` using the vocabulary your register already defines, and stop pushing to both.
+**Done 2026-10-19.** The sheet now reads `Africa/Gaborone`. The first attempt failed because it paired the timezone with an unsupported locale (`en_BW`); applying the timezone alone worked. What remains is behavioural, not technical: the ledger is still header-only, and an empty ledger with the right clock is still an empty ledger.
+
+**D6 — `agrisphere` vs `smartfarm`. Decided 2026-10-16; not yet propagated.**
+Both repositories were pushed 2026-10-16. Two candidate homes for the same agricultural capability means neither is canonical — but this was settled at the time, in `agrisphere/docs/PORTFOLIO-COMPETITIVE-POSITIONING-2026-10.md`: **AgriSphere is reference/legacy; SmartFarm is the farm system of record.** The Action Sheet still lists it as open, which is how it reached this document as a decision. The remaining work is propagation, not judgement: copy the ruling into `PORTFOLIO-REPOSITORY-ENTERPRISE-REGISTER.md`, mark `agrisphere` `CONSOLIDATE`, and stop the automation pushing the same research batch into both repositories (FAR-35).
 
 **D7 — The PERSONAL-BRAND docs are in the wrong repository. `GREEN`.**
 `docs/PERSONAL-BRAND/` — README, CAPABILITY-MAP, ENTERPRISE-ROUTING-MATRIX, MASTER-PROFESSIONAL-RECORD, OWNERSHIP-STATUS-REGISTER, PORTFOLIO-ASSET-LEDGER — exists only in `faroukpandor/faroukpandor`, which is a **fork of the deprecated `netlify-templates/victor-hugo`** (description: "FAROUK PANDOR by Victor Hugo boilerplate…"). The canonical repo `faroukpandor.github.io` contains none of them. Your register says the canonical repo is `ACTIVE / CANONICAL` and this one is not mentioned at all. So the current strategic documentation of your professional layer is stranded in a deprecated boilerplate fork with a Hugo/Webpack build nothing uses. Move the six documents into `faroukpandor.github.io/docs/PERSONAL-BRAND/` — same relative path, a straight copy — and leave the fork as a stub or archive it.
@@ -125,7 +129,7 @@ You asked to exploit the free tiers. The useful version of that is knowing which
 | **Cloudflare Pages** | Generous static/edge allowance, commercial use permitted | Nothing that bites a static export. This is the arbitrage: the same product, permitted |
 | **Supabase Free** | 2 active projects, 500 MB DB, 1 GB storage, 5 GB egress, 50k MAU | **Pauses after 7 days idle; no backups.** Never the only copy of anything |
 | Google Drive | 15 GB shared with Gmail and Photos (standard free tier) — **DOCUMENTED, not fetched this pass** | 23 folders of PDFs and exports. The real ceiling is Drive, not any connector |
-| Linear | Ample for five issues | Not capacity. The constraint is that commitments are not entered |
+| Linear | Ample for this backlog | Not capacity. The constraint is that commitments are not entered |
 | Notion | Free personal workspace — **UNVERIFIED**, no figure asserted | Not the binding limit here; duplication is |
 | Dropbox | Empty | Nothing. Declare unused |
 
@@ -143,11 +147,11 @@ Ordered by money and risk, not by tidiness. Status as of 2026-10-20.
 | 2 | **Send the outreach.** The shortlist of seven prospects already exists (`FIRST-CUSTOMER-VALIDATION-SHORTLIST-2026-10-19.md`); only the messages are missing. (D3) | Open — **FAR-26**, Urgent. Human only — nobody can send it for you |
 | 3 | **Decide what Supabase is for** — retire, or treat the missing backup as the emergency. (D2) | Open — **FAR-31**, High |
 | 4 | **Load the Principal Action Sheet into Linear with a clock on it.** (D3) | **DONE** — project *Principal Action Sheet — 2026-10-09*, FAR-26 to FAR-40 |
-| 5 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-32**, High |
+| 5 | **Reconnect Gmail** — without it both live commercial threads are invisible. (D9) | Open — **FAR-15**, High. Pre-existing, not new |
 | 6 | **Fix the Notion importer, then collapse the pesticide register** from five databases to one. (D4) | Open — **FAR-40**, Medium. Importer first, merge second |
 | 7 | **Fix the ledger timezone**, then log the next invoice the day it is issued. (D5) | **Timezone DONE** — sheet now `Africa/Gaborone`. Logging: **FAR-27** |
 | 8 | **Move `docs/PERSONAL-BRAND/` into `faroukpandor.github.io`.** (D7) | **Blocked** — GitHub connector is read-only. **FAR-38** |
-| 9 | **Close the `agrisphere` / `smartfarm` decision.** (D6) | Open — **FAR-35**, Medium |
+| 9 | **Propagate the `agrisphere` / `smartfarm` decision** — it was made 2026-10-16 and never written where it binds. (D6) | Open — **FAR-35**, Medium. Propagation, not decision |
 | 10 | **Copy in the 6 files that exist only on branches, resolve the 8 divergent docs, delete the 75 branches.** (Finding 4) | Open — **FAR-39**, Medium. ~2 hours. Needs GitHub write access |
 
 The three items that create or protect money — D1, D2 and the audit bookings — are all owner-gated. Nothing in this session can complete them: one is a hosting migration, one is a database judgement, one is sending messages as Farouk.
@@ -158,15 +162,16 @@ Explicitly **not** recommended: creating a repository, a dashboard, a Notion dat
 
 ## 7. Executed in this session
 
-Only three changes were made. All are additive or trivially reversible; nothing was deleted, moved or published.
+Changes are listed in the order they were made, including the ones that correct earlier entries here. All are additive or reversible. Nothing was deleted or moved; the only archives are two duplicate issues this session created itself.
 
 1. **`FAROUK-BOOKS-LEDGER` timezone changed** from `America/Los_Angeles` to `Africa/Gaborone`. The first attempt failed because it paired the timezone with an unsupported locale (`en_BW`); the timezone was then applied alone and verified in the response. D5 closed.
 2. **Linear project created** — *Principal Action Sheet — 2026-10-09*, in team `FAR`, priority High. Content states its own evidence basis. D3 closed.
-3. **Fifteen issues created**, FAR-26 to FAR-40: twelve carried from the action sheet; FAR-38 for the GitHub write-access block; FAR-39 for branch consolidation; FAR-40 for the five-way pesticide register. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14` and is flagged overdue.
-6. **Branch triage completed and written up** as `docs/BRANCH-CONSOLIDATION-MANIFEST-2026-10-19.md` — every branch compared to `main` by blob SHA. This produced the correction in finding 4 and reduced FAR-39 from an open-ended consolidation to 16 named items.
-7. **FAR-26 corrected again.** The Action Sheet asks to "name 3 businesses", but `docs/FIRST-CUSTOMER-VALIDATION-SHORTLIST-2026-10-19.md` already names seven, with sources, fit hypotheses, a draft script and eight qualification questions. The naming work is done. FAR-26 is now "send the outreach" — a human step, and the only one on the list that creates revenue.
-4. **Mirrored to Google Drive** `0.DOCUMENTS` as a Google Doc named `CONNECTOR-ROLE-MAP (2026-10-19)`. The Drive copy is a **snapshot**; the repository copy is authoritative. Drive is writable where GitHub is not, and `0.DOCUMENTS` is already the documented mirror for enterprise docs. This makes the map readable to the owner today, without waiting for GitHub write access. (A first upload was replaced; a placeholder edit was made in error and the file re-uploaded from the source. The trashed copy can be purged.)
-5. **FAR-35 corrected.** The `agrisphere` / `smartfarm` question was recorded as undecided. It is not: the decision was made 2026-10-16 and written into `agrisphere/docs/PORTFOLIO-COMPETITIVE-POSITIONING-2026-10.md` — AgriSphere is reference/legacy, SmartFarm is the farm system of record. It was never propagated to the governance layer or the action sheet. The work is now propagation, not decision.
+3. **Fifteen issues created**, FAR-26 to FAR-40: twelve carried from the action sheet; FAR-38 for the GitHub write-access block; FAR-39 for branch consolidation; FAR-40 for the five-way pesticide register. Priorities assigned; **no due dates invented** except FAR-28, which carries the source's own `>= 2026-10-14`.
+4. **Two of those fifteen archived as duplicates — an error of mine, corrected.** A `linear__get_issues` query with `limit: 5` returns the **newest** issues first. It showed only the tickets just created and hid the twelve that already existed. I read that as the size of the backlog and created FAR-28 (bookkeeping) and FAR-32 (Gmail reconnect) on top of work already tracked as **FAR-11** and **FAR-15**. Both descriptions now say so, and both issues are archived. The lesson is the finding: the pre-existing backlog is FAR-11 to FAR-25, and two of those — entity verification (P1) and Gmail reconnect — already outrank most of what was added here.
+5. **Branch triage completed and written up** as `docs/BRANCH-CONSOLIDATION-MANIFEST-2026-10-19.md` — every branch compared to `main` by blob SHA. This produced the correction in finding 4 and reduced FAR-39 from an open-ended consolidation to 16 named items.
+6. **FAR-26 corrected.** The Action Sheet asks to "name 3 businesses", but `docs/FIRST-CUSTOMER-VALIDATION-SHORTLIST-2026-10-19.md` already names seven, with sources, fit hypotheses, a draft script and eight qualification questions. The naming work is done. FAR-26 is now "send the outreach" — a human step, and the only one on the list that creates revenue.
+7. **Mirrored to Google Drive** `0.DOCUMENTS` as a Google Doc named `CONNECTOR-ROLE-MAP (2026-10-19)`. The Drive copy is a **snapshot**; the repository copy is authoritative. Drive is writable where GitHub is not, and `0.DOCUMENTS` is already the documented mirror for enterprise docs. This makes the map readable to the owner today, without waiting for GitHub write access. (A first upload was replaced; a placeholder edit was made in error and the file re-uploaded from the source. The trashed copy can be purged.)
+8. **FAR-35 corrected.** The `agrisphere` / `smartfarm` question was recorded as undecided. It is not: the decision was made 2026-10-16 and written into `agrisphere/docs/PORTFOLIO-COMPETITIVE-POSITIONING-2026-10.md` — AgriSphere is reference/legacy, SmartFarm is the farm system of record. It was never propagated to the governance layer or the action sheet. The work is now propagation, not decision.
 
 Attempted and failed: pushing the consolidation branch to `faroukpandor.github.io`. Read-only credential, reproduced twice, recorded in FAR-38. The fork remains the only copy of these documents for now — which is precisely the problem the audit found, so it should not be left in that state.
 
@@ -183,4 +188,4 @@ Stated plainly so nothing here is read as more than it is.
 - **The ledger's emptiness** is verified as a read, not as a fact about your business — entries may exist elsewhere. Flagged as such in section 1.
 - **Google Drive quota**, Notion free-plan limits and Linear free-plan limits were not fetched this pass.
 
-No files were moved, no records edited, no deployments changed, no keys read into this document.
+No files were moved, no business records edited, no deployments changed, no keys read into this document. The only writes to a live system were the ledger's timezone and the Linear project and issues listed in §7 — all reversible, none of them financial.
