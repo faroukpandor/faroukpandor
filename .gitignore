@@ -1,8 +1,6 @@
-# The site is static — nothing is generated, but keep local noise out
-.DS_Store
-Thumbs.db
-*.log
-
-# If a local preview tool ever writes here
-dist/
 node_modules/
+dist/
+site/data/webpack.json
+
+# Hugo writes this on every build
+site/.hugo_build.lock

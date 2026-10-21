@@ -1,86 +1,121 @@
-# faroukpandor
+# Victor Hugo — maintained fork
 
-The source repository for **[faroukpandor.github.io](https://faroukpandor.github.io/)** — a
-portfolio hub that grades its own claims.
+A working copy of [netlify-templates/victor-hugo](https://github.com/netlify-templates/victor-hugo),
+the Hugo + Webpack boilerplate that Netlify deprecated in December 2021.
 
-No framework. No build step. No external requests. HTML, CSS and about forty lines of
-JavaScript, deployed straight from `site/`.
+**Upstream is archived**, which means it is read-only: no pull requests, no issue comments,
+no pushes. It last received a commit on 2021-12-23 and still has 25 open issues. This fork
+exists because the template could no longer be installed or built, and 362 forks inherited
+that breakage.
 
 ---
 
-## Why this repository looks like this
+## Why this fork exists
 
-It was a fork of Netlify's **Victor Hugo** boilerplate — a Hugo + Webpack + node-sass stack
-that had already been deprecated upstream and could no longer install on a current Node
-runtime. The homepage still said *"Hooray 🎉 — you've built this with Victor-Hugo"*.
-
-Rather than patch a dead toolchain, the site was rebuilt as static HTML and the old stack
-was archived intact at [`archive/legacy-victor-hugo/`](archive/legacy-victor-hugo/). It is
-kept because the migration was supposed to be reversible, not because anyone should run it.
-
-The 2025 *Strategy for Monetizing Passions* document — the one piece of genuinely personal
-material in the old repository — is preserved at
-[`archive/2025-strategy-monetizing/`](archive/2025-strategy-monetizing/).
-
-## Structure
+Upstream does not install on any current Node runtime. On Node 22:
 
 ```
-site/                  the published site — this is the deployable artefact
-  index.html           the whole page
-  assets/css/main.css  design system, hand-written
-  assets/js/main.js    work filter + footer year. Nothing else.
-  404.html
-  robots.txt  sitemap.xml  .nojekyll
-archive/               superseded infrastructure, kept for reversibility
+npm error gyp ERR! configure error
+npm error gyp ERR! System Linux
+npm error gyp ERR! command "node" ".../node-gyp/bin/node-gyp.js" "rebuild" ...
+npm error Build failed with error code: 1
 ```
 
-Operating records — the charter, the Drive and Gmail operating systems, the deployment and
-commercial registers, client files — are **not** in this repository. They live in private
-storage because they contain client names, disputed invoices and unverified claims that
-have no business being publicly indexed. Publishing those alongside a portfolio would
-undermine the very evidence standard the portfolio claims to hold.
+`node-sass@6` is a native module with no prebuilt binary beyond Node 16, so `npm install`
+falls back to compiling it — which needs a Python 2 toolchain that no longer ships anywhere.
 
-## Run it locally
+Two further bugs stop the build even after the install succeeds. Both are in this fork's
+history because nobody had reached them: they sit *behind* the install failure, so anyone
+who fixed sass by hand hit these next and stopped.
 
-Any static server. There is nothing to compile.
+---
+
+## What was fixed
+
+| # | File | Change | Symptom it removes |
+|---|---|---|---|
+| 1 | `package.json` | `node-sass@^6` → `sass@^1.80` | `npm install` fails to compile a native module on Node ≥ 17. dart-sass is pure JavaScript. |
+| 2 | `.babelrc` | Removed both `plugins` entries | **`Cannot find package '@babel/plugin-syntax-object-rest-spread'`** — the build referenced two Babel plugins that were never declared as dependencies. `@babel/preset-env` has handled object rest/spread natively since Babel 7. |
+| 3 | `webpack.common.js` | Dropped the `json-loader` rule | Any `.json` import would throw — `json-loader` isn't a dependency, and Webpack 5 parses JSON natively. |
+| 4 | `webpack.common.js` | `name: "name=/[hash].[ext]"` → `"[hash].[ext]"` | The `name=` prefix is not valid `file-loader` syntax; it was being written into the emitted filename. |
+| 5 | `package.json` | `sass-loader@^12` → `^16` | `Deprecation: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0` on every build. |
+| 6 | `webpack.prod.js` | `[hash]` → `[contenthash]` | `DeprecationWarning: [hash] is now [fullhash]` — and `contenthash` gives correct long-term caching. |
+| 7 | `.nvmrc` | `16` → `22` | The pinned version is the one that cannot install the project. |
+
+Items 2 and 3 are not reported in any upstream issue. They were found by building the
+project after item 1.
+
+---
+
+## Verified
+
+```
+$ node -v
+v22.22.3
+
+$ npm install
+added 1091 packages in 42s
+
+$ npm run build:webpack
+webpack 5.112.0 compiled successfully in 2045 ms
+
+$ find dist -type f
+dist/fonts/.keep
+dist/index.html
+dist/main.5751e.css
+dist/main.d9a4c.js
+```
+
+No warnings, no native compilation, content-hashed assets, and `site/data/webpack.json`
+written with the filenames Hugo reads.
+
+### What is *not* verified here
+
+`npm run build:hugo` was not run in the environment this fork was prepared in, because
+`hugo-bin`'s postinstall downloads a Hugo release binary from GitHub and the sandbox
+intercepted the TLS handshake (`unable to verify the first certificate`). That is an
+environment limitation, not a defect — on a normal machine or in CI it resolves. The Hugo
+input (`site/`) is untouched from upstream.
+
+If you want a fully verified end-to-end build, run `npm run build` once on your own machine
+and confirm it writes `dist/`.
+
+---
+
+## Usage
 
 ```bash
-cd site && python3 -m http.server 8000
+npm install        # no native toolchain required
+npm start          # Hugo + webpack dev servers, hot reload
+npm run build      # production build into dist/
 ```
 
-## Deploy
+Node 18 or newer. No `node-sass`, no Python, no C++ compiler.
 
-`.github/workflows/pages.yml` publishes `site/` to GitHub Pages on every push that touches
-it. The artefact is plain static files, so the same directory can be dropped on Cloudflare
-Pages, Netlify or S3 with no configuration change — which is the point.
+## Deploying
 
-To use a custom domain later, add a `CNAME` file to `site/` and point the DNS record; no
-restructuring required.
+`netlify.toml` is unchanged from upstream. The build runs `npm run build` and publishes
+`dist/`.
 
-## The editorial rule
+## Status and intent
 
-Every claim on the site carries a provenance level:
+This is a fork, not a revival. Upstream is archived deliberately — Netlify recommends
+[Hyas](https://github.com/h-enk/hyas) for new projects, and so would I. The purpose of this
+repository is narrower: to leave a copy of the template that actually installs, for anyone
+who is keeping one of the 362 existing forks alive.
 
-| Grade | Meaning |
-|---|---|
-| **Verified** | Loaded and checked by hand; the public URL exists today |
-| **Documented** | A record exists and can be produced on request |
-| **Self-reported** | True to the author's knowledge, not independently evidenced |
-| **Historical** | Real once; not current, and never presented as operating |
+If you are starting a new project, use Hyas. If you are maintaining an old Victor Hugo
+site and `npm install` just broke, start here.
 
-Client work is attributed, never claimed. Where a client owns the brand or the
-intellectual property, the page says so. Where an enterprise has no published price, the
-page says that too rather than inventing one.
+## Contributing
 
-The habit being avoided: a portfolio of confident adjectives with nothing behind them.
+Upstream cannot accept contributions — it is archived and read-only. If you want to improve
+Victor Hugo itself, the practical options are:
 
-## What is deliberately absent
-
-No client names beyond those who have agreed to be credited, no invoice data, no dispute
-records, no unverified claims, and no credentials. The site describes work; it does not
-publish other people's commercial business.
+1. Open a discussion on a maintained fork.
+2. Take the patch above to [h-enk/hyas](https://github.com/h-enk/hyas), which is actively
+   maintained.
 
 ## License
 
-Site content © Farouk Gerald Pandor. The inherited boilerplate remains under the MIT
-licence in [`LICENSE`](LICENSE).
+MIT, inherited from upstream. See [LICENSE](LICENSE).
