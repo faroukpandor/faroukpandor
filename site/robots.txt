@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faroukpandor.github.io/faroukpandor/sitemap.xml

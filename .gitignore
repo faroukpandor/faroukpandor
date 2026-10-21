@@ -1,3 +1,8 @@
-node_modules/
+# The site is static — nothing is generated, but keep local noise out
+.DS_Store
+Thumbs.db
+*.log
+
+# If a local preview tool ever writes here
 dist/
-site/data/webpack.json
+node_modules/
